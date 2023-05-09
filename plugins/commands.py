@@ -4,10 +4,40 @@ from Script import script
 import asyncio
 import sys
 import os
+import os
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+from pyrogram import Client
 
 START_TXT = script.START_TXT
 HELP_TXT = script.HELP_TXT 
 ABOUT_TXT = script.ABOUT_TXT
+
+# Initialize Spotify API credentials
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=os.environ.get("SPOTIPY_CLIENT_ID"), client_secret=os.environ.get("SPOTIPY_CLIENT_SECRET")))
+
+@Client.on_message()
+async def get_song_details(client, message):
+    song_name = message.text
+    results = sp.search(q=song_name, limit=1)
+    if results:
+        # Send song name
+        await message.reply_text(f"Song Name: {results['tracks']['items'][0]['name']}")
+        
+        # Send artist names
+        artists = results['tracks']['items'][0]['artists']
+        for artist in artists:
+            await message.reply_text(f"Artist: {artist['name']}")
+        
+        # Send album name
+        await message.reply_text(f"Album: {results['tracks']['items'][0]['album']['name']}")
+        
+        # Send thumbnail image URL
+        thumbnail_url = results['tracks']['items'][0]['album']['images'][0]['url']
+        await message.reply_photo(thumbnail_url)
+        
+    else:
+        await message.reply_text("Sorry, couldn't find any matching results for that song name.")
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start(bot, cmd):

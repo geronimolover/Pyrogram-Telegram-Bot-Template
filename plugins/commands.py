@@ -22,15 +22,15 @@ async def get_song_details(client, message):
     results = sp.search(q=song_name, limit=1)
     if results:
         # Send song name
-        await message.reply_text(f"Song Name: {results['tracks']['items'][0]['name']}")
+        name = results['tracks']['items'][0]['name']
         
         # Send artist names
         artists = results['tracks']['items'][0]['artists']
         for artist in artists:
-            await message.reply_text(f"Artist: {artist['name']}")
+            art = artist['name']
         
         # Send album name
-        await message.reply_text(f"Album: {results['tracks']['items'][0]['album']['name']}")
+        album = results['tracks']['items'][0]['album']['name']
         
         # Send thumbnail image URL
         thumbnail_url = results['tracks']['items'][0]['album']['images'][0]['url']

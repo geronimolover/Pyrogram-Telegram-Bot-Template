@@ -16,7 +16,7 @@ ABOUT_TXT = script.ABOUT_TXT
 # Initialize Spotify API credentials
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=os.environ.get("SPOTIPY_CLIENT_ID"), client_secret=os.environ.get("SPOTIPY_CLIENT_SECRET")))
 
-@Client.on_message()
+@Client.on_message(filters.text & filters.incoming)
 async def get_song_details(client, message):
     song_name = message.text
     results = sp.search(q=song_name, limit=1)
@@ -34,7 +34,7 @@ async def get_song_details(client, message):
         
         # Send thumbnail image URL
         thumbnail_url = results['tracks']['items'][0]['album']['images'][0]['url']
-        await message.reply_photo(thumbnail_url)
+        await message.reply_photo(thumbnail_url, caption=name)
         
     else:
         await message.reply_text("Sorry, couldn't find any matching results for that song name.")

@@ -31,6 +31,12 @@ async def get_song_details(client, message):
         
         # Send album name
         album = results['tracks']['items'][0]['album']['name']
+	
+	# Get popularity details
+	popularity = results['tracks']['items'][0]['popularity']
+	
+	# Create caption with song details
+        caption = f"<b>{name}</b>\n\nArtist: {art}\nAlbum: {album}\nPopularity: {popularity}"
         
         # Send thumbnail image URL
         thumbnail_url = results['tracks']['items'][0]['album']['images'][0]['url']

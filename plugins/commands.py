@@ -31,11 +31,11 @@ async def get_song_details(client, message):
         
         # Send album name
         album = results['tracks']['items'][0]['album']['name']
-	
-	# Get popularity details
-	popularity = results['tracks']['items'][0]['popularity']
-	
-	# Create caption with song details
+        
+        # Get popularity details
+        popularity = results['tracks']['items'][0]['popularity']
+        
+        # Create caption with song details
         caption = f"<b>{name}</b>\n\nArtist: {art}\nAlbum: {album}\nPopularity: {popularity}"
         
         # Send thumbnail image URL
@@ -44,7 +44,7 @@ async def get_song_details(client, message):
         
     else:
         await message.reply_text("Sorry, couldn't find any matching results for that song name.")
-
+	
 @Client.on_message(filters.command("start") & filters.private)
 async def start(bot, cmd):
 	await cmd.reply_text(

@@ -40,7 +40,7 @@ async def get_song_details(client, message):
         
         # Send thumbnail image URL
         thumbnail_url = results['tracks']['items'][0]['album']['images'][0]['url']
-        await message.reply_photo(thumbnail_url, caption=name)
+        await message.reply_photo(thumbnail_url, caption=caption)
         
     else:
         await message.reply_text("Sorry, couldn't find any matching results for that song name.")

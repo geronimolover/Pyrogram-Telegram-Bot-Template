@@ -3,7 +3,7 @@ from pyrogram.types import Message
 import os
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = "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"
 
 CHARACTER_PROMPTS = {
     "geronimo": (

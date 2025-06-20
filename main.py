@@ -8,7 +8,7 @@ bot = Client(
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
     workers=50,
-    plugins=dict(root="plugins")
+    plugins=dict(root="plugins"),
     no_updates=True
     )
 
